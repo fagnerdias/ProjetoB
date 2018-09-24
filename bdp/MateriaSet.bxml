@@ -1,0 +1,18 @@
+<Machine name='MateriaSet' type='abstraction'>
+<Sets>
+<Set>
+<Id value='MATERIA' typref='2225794464'/>
+</Set>
+</Sets>
+<Initialisation>
+<Skip/>
+</Initialisation>
+<TypeInfos>
+<Type id='2225794464'>
+<Unary_Exp op='POW'>
+<Id value='MATERIA'/>
+</Unary_Exp>
+</Type>
+</TypeInfos>
+
+</Machine>

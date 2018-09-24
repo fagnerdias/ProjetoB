@@ -1,0 +1,20 @@
+THEORY ProofList IS
+_f(1) & _f(2) & _f(4) & _f(5) & removeTurma.1,(_f(6) => _f(8));
+_f(1) & _f(2) & _f(4) & _f(5) & addTurma.1,(_f(6) => _f(7))
+END
+&
+THEORY Formulas IS
+((NAT) = (((0) .. (2147483647)))) & ((INT) = (((-2147483647) .. (2147483647))));
+MATERIA: FIN(INTEGER) & not(MATERIA = {}) & PROFESSOR: FIN(INTEGER) & not(PROFESSOR = {});
+((turmas$1) : (((MATERIA) +-> (PROFESSOR))));
+((turmas) : (((MATERIA) +-> (PROFESSOR))));
+((pp) : (PROFESSOR)) & ((mm) : (MATERIA));
+"Invariant is preserved";
+((((turmas) \/ ({((mm) |-> (pp))}))) : (((MATERIA) +-> (PROFESSOR))));
+(((turmas - {((mm) |-> (pp))})) : (((MATERIA) +-> (PROFESSOR))));
+((pp) : (PROFESSOR));
+((mm) : (MATERIA))
+END
+&
+THEORY EnumerateX
+END

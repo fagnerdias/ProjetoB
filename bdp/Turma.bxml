@@ -1,0 +1,210 @@
+<Machine name='Turma' type='abstraction'>
+<Sees>
+<Referenced_Machine>
+<Name>MateriaSet</Name>
+</Referenced_Machine>
+<Referenced_Machine>
+<Name>ProfessorSet</Name>
+</Referenced_Machine>
+</Sees>
+<Abstract_Variables>
+<Id value='turmas' typref='976343176'/>
+</Abstract_Variables>
+<Invariant>
+<Exp_Comparison op=':'>
+<Id value='turmas' typref='976343176'/>
+<Binary_Exp op='+-&gt;' typref='1520816635'>
+<Id value='MATERIA' typref='2225794464'/>
+<Id value='PROFESSOR' typref='1711505738'/>
+</Binary_Exp>
+</Exp_Comparison>
+</Invariant>
+<Initialisation>
+<Becomes_In>
+<Variables>
+<Id value='turmas' typref='976343176'/>
+</Variables>
+<Value>
+<Binary_Exp op='+-&gt;' typref='1520816635'>
+<Id value='MATERIA' typref='2225794464'/>
+<Id value='PROFESSOR' typref='1711505738'/>
+</Binary_Exp>
+</Value>
+</Becomes_In>
+</Initialisation>
+<Operations>
+<Operation name='addTurma'>
+<Input_Parameters>
+<Id value='pp' typref='2011556089'/>
+<Id value='mm' typref='2595884963'/>
+</Input_Parameters>
+<Precondition>
+<Nary_Pred op='&amp;'>
+<Exp_Comparison op=':'>
+<Id value='pp' typref='2011556089'/>
+<Id value='PROFESSOR' typref='1711505738'/>
+</Exp_Comparison>
+<Exp_Comparison op=':'>
+<Id value='mm' typref='2595884963'/>
+<Id value='MATERIA' typref='2225794464'/>
+</Exp_Comparison>
+</Nary_Pred>
+</Precondition>
+<Body>
+<Assignement_Sub>
+<Variables>
+<Id value='turmas' typref='976343176'/>
+</Variables>
+<Values>
+<Binary_Exp op='\/' typref='976343176'>
+<Id value='turmas' typref='976343176'/>
+<Nary_Exp op='{' typref='976343176'>
+<Binary_Exp op='|-&gt;' typref='3586968123'>
+<Id value='mm' typref='2595884963'/>
+<Id value='pp' typref='2011556089'/>
+</Binary_Exp>
+</Nary_Exp>
+</Binary_Exp>
+</Values>
+</Assignement_Sub>
+</Body>
+</Operation>
+<Operation name='removeTurma'>
+<Input_Parameters>
+<Id value='pp' typref='2011556089'/>
+<Id value='mm' typref='2595884963'/>
+</Input_Parameters>
+<Precondition>
+<Nary_Pred op='&amp;'>
+<Exp_Comparison op=':'>
+<Id value='pp' typref='2011556089'/>
+<Id value='PROFESSOR' typref='1711505738'/>
+</Exp_Comparison>
+<Exp_Comparison op=':'>
+<Id value='mm' typref='2595884963'/>
+<Id value='MATERIA' typref='2225794464'/>
+</Exp_Comparison>
+</Nary_Pred>
+</Precondition>
+<Body>
+<Assignement_Sub>
+<Variables>
+<Id value='turmas' typref='976343176'/>
+</Variables>
+<Values>
+<Binary_Exp op='-' typref='976343176'>
+<Id value='turmas' typref='976343176'/>
+<Nary_Exp op='{' typref='976343176'>
+<Binary_Exp op='|-&gt;' typref='3586968123'>
+<Id value='mm' typref='2595884963'/>
+<Id value='pp' typref='2011556089'/>
+</Binary_Exp>
+</Nary_Exp>
+</Binary_Exp>
+</Values>
+</Assignement_Sub>
+</Body>
+</Operation>
+<Operation name='profTurma'>
+<Output_Parameters>
+<Id value='ans' typref='976343176'/>
+</Output_Parameters>
+<Input_Parameters>
+<Id value='pp' typref='2011556089'/>
+</Input_Parameters>
+<Precondition>
+<Exp_Comparison op=':'>
+<Id value='pp' typref='2011556089'/>
+<Id value='PROFESSOR' typref='1711505738'/>
+</Exp_Comparison>
+</Precondition>
+<Body>
+<Assignement_Sub>
+<Variables>
+<Id value='ans' typref='976343176'/>
+</Variables>
+<Values>
+<Binary_Exp op='|&gt;' typref='976343176'>
+<Id value='turmas' typref='976343176'/>
+<Nary_Exp op='{' typref='1711505738'>
+<Id value='pp' typref='2011556089'/>
+</Nary_Exp>
+</Binary_Exp>
+</Values>
+</Assignement_Sub>
+</Body>
+</Operation>
+<Operation name='materiaTurma'>
+<Output_Parameters>
+<Id value='ans' typref='976343176'/>
+</Output_Parameters>
+<Input_Parameters>
+<Id value='mm' typref='2595884963'/>
+</Input_Parameters>
+<Precondition>
+<Exp_Comparison op=':'>
+<Id value='mm' typref='2595884963'/>
+<Id value='MATERIA' typref='2225794464'/>
+</Exp_Comparison>
+</Precondition>
+<Body>
+<Assignement_Sub>
+<Variables>
+<Id value='ans' typref='976343176'/>
+</Variables>
+<Values>
+<Binary_Exp op='&lt;|' typref='976343176'>
+<Nary_Exp op='{' typref='2225794464'>
+<Id value='mm' typref='2595884963'/>
+</Nary_Exp>
+<Id value='turmas' typref='976343176'/>
+</Binary_Exp>
+</Values>
+</Assignement_Sub>
+</Body>
+</Operation>
+</Operations>
+<TypeInfos>
+<Type id='976343176'>
+<Unary_Exp op='POW'>
+<Binary_Exp op='*'>
+<Id value='MATERIA'/>
+<Id value='PROFESSOR'/>
+</Binary_Exp>
+</Unary_Exp>
+</Type>
+<Type id='1520816635'>
+<Unary_Exp op='POW'>
+<Unary_Exp op='POW'>
+<Binary_Exp op='*'>
+<Id value='MATERIA'/>
+<Id value='PROFESSOR'/>
+</Binary_Exp>
+</Unary_Exp>
+</Unary_Exp>
+</Type>
+<Type id='2225794464'>
+<Unary_Exp op='POW'>
+<Id value='MATERIA'/>
+</Unary_Exp>
+</Type>
+<Type id='1711505738'>
+<Unary_Exp op='POW'>
+<Id value='PROFESSOR'/>
+</Unary_Exp>
+</Type>
+<Type id='2011556089'>
+<Id value='PROFESSOR'/>
+</Type>
+<Type id='2595884963'>
+<Id value='MATERIA'/>
+</Type>
+<Type id='3586968123'>
+<Binary_Exp op='*'>
+<Id value='MATERIA'/>
+<Id value='PROFESSOR'/>
+</Binary_Exp>
+</Type>
+</TypeInfos>
+
+</Machine>

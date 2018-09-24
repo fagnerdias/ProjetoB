@@ -1,0 +1,12 @@
+digraph {
+AlunoOp [ label=" AlunoOp " shape= box ]
+AlunoSet [ label=" AlunoSet " shape= box ]
+MateriaSet [ label=" MateriaSet " shape= box ]
+ProfessorSet [ label=" ProfessorSet " shape= box ]
+Turma [ label=" Turma " shape= box ]
+
+"AlunoOp" -> "Turma" [style= dotted ]
+"AlunoOp" -> "AlunoSet" [style= dotted ]
+"Turma" -> "MateriaSet" [style= dotted ]
+"Turma" -> "ProfessorSet" [style= dotted ]
+}

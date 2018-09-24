@@ -1,0 +1,18 @@
+<Machine name='AlunoSet' type='abstraction'>
+<Sets>
+<Set>
+<Id value='ALUNO' typref='4095689030'/>
+</Set>
+</Sets>
+<Initialisation>
+<Skip/>
+</Initialisation>
+<TypeInfos>
+<Type id='4095689030'>
+<Unary_Exp op='POW'>
+<Id value='ALUNO'/>
+</Unary_Exp>
+</Type>
+</TypeInfos>
+
+</Machine>
