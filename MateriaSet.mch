@@ -5,5 +5,4 @@
 MACHINE  MateriaSet
 SETS MATERIA
     
-
 END
