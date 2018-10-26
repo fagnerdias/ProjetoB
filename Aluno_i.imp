@@ -1,0 +1,10 @@
+/* Aluno_i
+ * Author: Fagne
+ * Creation date: 20/10/2018
+ */
+
+IMPLEMENTATION Aluno_i
+REFINES Aluno_cxt
+VALUES ALUNO  = 0 .. 10
+
+ END

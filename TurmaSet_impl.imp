@@ -1,0 +1,80 @@
+/* TurmaSet_impl
+ * Author: Fagne
+ * Creation date: 20/10/2018
+ */
+
+IMPLEMENTATION TurmaSet_impl
+REFINES TurmaSet
+SEES MateriaSet, ProfessorSet,Aluno_cxt, Curso, Departamento
+IMPORTS AlunoSet
+CONCRETE_VARIABLES turmaP_i ,turmaA_i, mediaNotas_i, qntProvas_i
+INVARIANT  turmaP_i : (PROFESSOR * MATERIA) --> BOOL 
+                    & turmaA_i :( ALUNO * PROFESSOR * MATERIA) --> BOOL 
+                    & mediaNotas_i : ALUNO --> (0 .. 30)
+                    & qntProvas_i : ALUNO --> (0 .. 3)
+                    & !(pp, mm) . ((pp:PROFESSOR & mm:MATERIA) => (turmaP_i(pp, mm) = TRUE <=> (mm : turmaP[{pp}])))
+                    & !(aa, pp, mm) . ((aa:ALUNO & pp:PROFESSOR & mm:MATERIA) => (turmaA_i(aa, pp, mm ) = TRUE <=> ((pp , mm) : turmaA[{aa}])))
+                    & mediaNotas_i = mediaNotas
+                    & qntProvas_i = qntProvas
+INITIALISATION turmaP_i := (PROFESSOR * MATERIA) * {FALSE} ;
+                                turmaA_i := (ALUNO * PROFESSOR * MATERIA ) * {FALSE};
+                                mediaNotas_i := ALUNO * {0};
+                                qntProvas_i := ALUNO * {0}
+OPERATIONS
+    criarTurma(pp, mm)=
+        turmaP_i(pp, mm) := TRUE;
+
+        
+    removerTurma(pp, mm)=
+        turmaP_i(pp, mm) := FALSE;       
+
+        
+    matricularAlunoTurma(aa, pp, mm) =
+        turmaA_i(aa, pp, mm) := TRUE;
+
+        
+     removerAlunoTurma(aa, pp, mm) =
+        turmaA_i(aa, pp, mm) := FALSE;        
+
+        
+        
+ rr <-- addNotaAluno(aa, nn)=
+        BEGIN
+            VAR xx, yy IN 
+                xx := mediaNotas_i(aa) ;
+                mediaNotas_i(aa) := xx + nn;
+                yy := qntProvas_i(aa);
+                qntProvas_i(aa) := yy + 1;
+                yy := qntProvas_i(aa);
+                 IF yy = 0
+                 THEN rr := 0
+                 ELSE rr := mediaNotas_i(aa) / qntProvas_i(aa)
+                 END
+             END
+         END;
+         
+    rr <-- mediaAluno(aa)=
+        rr := mediaNotas_i(aa) / qntProvas_i(aa);
+
+        
+    rr <-- qntProvasAluno(aa, pp, mm)=
+        rr := qntProvas_i(aa);
+       
+        
+   rr <-- avaliarAluno(aa, pp, mm) =
+            BEGIN
+                VAR xx, yy, zz IN
+                    xx := mediaNotas_i(aa);
+                    yy := qntProvas_i(aa);
+                    zz := (xx/ yy);
+                IF  zz >= 7
+                THEN turmaA_i(aa, pp, mm) := FALSE; 
+                            rr := TRUE;
+                            addMateriaAprovada(aa, mm)
+                ELSE turmaA_i(aa, pp, mm) := FALSE; 
+                           rr := FALSE
+                END
+                END
+            END
+            
+ END

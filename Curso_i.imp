@@ -1,0 +1,10 @@
+/* Curso_i
+ * Author: Fagne
+ * Creation date: 20/10/2018
+ */
+
+IMPLEMENTATION Curso_i
+REFINES Curso_cxt
+VALUES CURSOS = 0 .. 10
+
+ END

@@ -1,0 +1,38 @@
+/* Curso_impl
+ * Author: Fagne
+ * Creation date: 20/10/2018
+ */
+
+IMPLEMENTATION Curso_impl
+REFINES Curso
+SEES MateriaSet, Aluno_cxt, Curso_cxt, Departamento
+CONCRETE_VARIABLES gradeObrigatoria_i, gradeOptativa_i, alunosMatriculados_i
+INVARIANT  gradeObrigatoria_i: (CURSOS * MATERIA) --> BOOL &  gradeOptativa_i: (CURSOS * MATERIA) --> BOOL 
+                        & alunosMatriculados_i : (ALUNO * CURSOS ) --> BOOL
+                        &  !(cc, mm) . ((cc:CURSOS & mm:MATERIA) => (gradeObrigatoria_i(cc,mm) = TRUE <=> (mm : gradeObrigatoria[{cc}])))
+                        &  !(cc, mm) . ((cc:CURSOS & mm:MATERIA) => (gradeOptativa_i(cc,mm) = TRUE <=> (mm : gradeOptativa[{cc}])))
+                        &  !(aa, cc) . ((aa:ALUNO & cc:CURSOS) => (alunosMatriculados_i(aa,cc) = TRUE <=> (cc : alunosMatriculados[{aa}])))
+INITIALISATION gradeObrigatoria_i := (CURSOS * MATERIA) * {FALSE} ; 
+                                gradeOptativa_i := (CURSOS * MATERIA) * {FALSE} ; 
+                                alunosMatriculados_i := (ALUNO * CURSOS) * {FALSE}
+    
+OPERATIONS
+    matricularAlunoCurso(cc, aa)=
+       alunosMatriculados_i(aa, cc) := TRUE;
+
+    removerAlunoCurso(cc, aa)=
+       alunosMatriculados_i(aa, cc) := FALSE;
+       
+    addMateriaObrigatoria(cc, mm)=
+         gradeObrigatoria_i(cc, mm) := TRUE;   
+
+    removerMateriaObrigatoria(cc, mm)=
+         gradeObrigatoria_i(cc, mm) := FALSE;   
+
+    addMateriaOptativa(cc, mm)=
+       gradeOptativa_i(cc, mm) := TRUE; 
+
+    removerMateriaOptativa(cc, mm)=
+        gradeOptativa_i(cc, mm) := FALSE 
+
+ END

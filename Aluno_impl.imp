@@ -1,0 +1,17 @@
+/* Aluno_impl
+ * Author: Fagne
+ * Creation date: 20/10/2018
+ */
+
+IMPLEMENTATION Aluno_impl
+REFINES AlunoSet
+SEES MateriaSet, Aluno_cxt, Curso
+CONCRETE_VARIABLES materiasAprovadas_i
+INVARIANT materiasAprovadas_i : (ALUNO * MATERIA) --> BOOL 
+                        & !(aa, mm) . ((aa:ALUNO & mm:MATERIA) => (materiasAprovadas_i(aa, mm) = TRUE <=> (mm : materiasAprovadas[{aa}])))
+INITIALISATION materiasAprovadas_i := (ALUNO * MATERIA) * {FALSE}
+OPERATIONS
+     addMateriaAprovada(aa, mm)=
+         materiasAprovadas_i(aa, mm) := TRUE
+
+ END

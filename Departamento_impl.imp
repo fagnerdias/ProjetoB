@@ -1,0 +1,38 @@
+/* Departamento_impl
+ * Author: Fagne
+ * Creation date: 20/10/2018
+ */
+
+IMPLEMENTATION Departamento_impl
+REFINES Departamento
+SEES Curso_cxt, ProfessorSet, Departamento_cxt
+CONCRETE_VARIABLES coordenacao_i, membros_i, cursos_i
+INVARIANT coordenacao_i : (PROFESSOR * CURSOS) --> BOOL 
+                        & membros_i : (PROFESSOR * DEPARTAMENTO) --> BOOL
+                        &  cursos_i : (CURSOS * DEPARTAMENTO) --> BOOL 
+                        &  !(pp, cc) . ((pp:PROFESSOR& cc:CURSOS) => (coordenacao_i(pp, cc) = TRUE <=> (cc : coordenacao[{pp}])))
+                        &  !(pp, dd) . ((pp:PROFESSOR& dd:DEPARTAMENTO) => (membros_i(pp, dd) = TRUE <=> (dd : membros[{pp}])))
+                        &  !(cc, dd) . ((cc:CURSOS & dd:DEPARTAMENTO) => (cursos_i(cc, dd) = TRUE <=> (dd : cursos[{cc}])))
+INITIALISATION  coordenacao_i := (PROFESSOR * CURSOS) * {FALSE}; 
+                                membros_i := (PROFESSOR * DEPARTAMENTO) * {FALSE};  
+                                cursos_i := (CURSOS * DEPARTAMENTO) * {FALSE}
+OPERATIONS
+    addProfessorMembro(pp, dd)=
+       membros_i(pp, dd) := TRUE; 
+
+    removerProfessorMembro(pp, dd)=
+       membros_i(pp, dd):= FALSE;
+        
+    addCursoDepartamento(dd, cc)=
+       cursos_i(cc, dd) := TRUE;
+       
+    removerCursoDepartamento(dd, cc)=
+       cursos_i(cc, dd) := FALSE;
+       
+    addCoordenador(pp, cc)=
+        coordenacao_i(pp, cc) := TRUE;
+        
+     removerCoordenacao(cc, pp)=
+         coordenacao_i(pp, cc) :=  FALSE
+
+ END

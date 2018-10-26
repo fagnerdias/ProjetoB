@@ -1,0 +1,10 @@
+/* Professor_i
+ * Author: Fagne
+ * Creation date: 20/10/2018
+ */
+
+IMPLEMENTATION Professor_i
+REFINES ProfessorSet
+VALUES PROFESSOR = 0 .. 10
+
+ END

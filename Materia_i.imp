@@ -1,0 +1,20 @@
+/* Materia_i
+ * Author: Fagne
+ * Creation date: 20/10/2018
+ */
+
+IMPLEMENTATION Materia_i
+REFINES MateriaSet
+VALUES MATERIA = 0 .. 10
+CONCRETE_VARIABLES preRequisitos_i
+INVARIANT preRequisitos_i : (MATERIA * MATERIA) --> BOOL 
+                        & !(mm, pp) . ((mm : MATERIA & pp : MATERIA) => (preRequisitos_i(mm, pp) = TRUE <=> (pp : preRequisito[{mm}])))
+INITIALISATION preRequisitos_i := (MATERIA * MATERIA) *{FALSE}
+OPERATIONS
+    addPreRequisito(mm, pp)=
+        preRequisitos_i(mm, pp)  := TRUE;
+        
+    removePreRequisito(mm, pp)=    
+        preRequisitos_i(mm, pp)  := FALSE
+
+ END
