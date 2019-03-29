@@ -21,12 +21,13 @@ OPERATIONS
         END;
         
     removerTurma(pp, mm)=
-        PRE pp:PROFESSOR & mm: MATERIA & mm : ran({pp} <| turmaP) & (pp |-> mm) : turmaP
+        PRE pp:PROFESSOR & mm: MATERIA & mm : ran({pp} <| turmaP)
+            & (pp |-> mm) : turmaP & turmaA|>{pp |-> mm} = {}
         THEN turmaP := turmaP  - { pp |-> mm}
         END;
         
     matricularAlunoTurma(aa, pp, mm) =
-        PRE aa:ALUNO & pp:PROFESSOR & mm:MATERIA & pp:dom(turmaP) 
+        PRE aa:ALUNO & pp:PROFESSOR & mm:MATERIA & pp:dom(turmaP) & (pp |-> mm) : turmaP
                & aa: dom(alunosMatriculados) & mm: ran(turmaP) & ran({mm}<| preRequisito) : POW(ran({aa} <| materiasAprovadas))          
         THEN turmaA := turmaA \/ {aa |-> (pp|-> mm)}
         END;
@@ -47,7 +48,7 @@ OPERATIONS
         END;
         
     rr <-- mediaAluno(aa)=
-        PRE aa: ALUNO & aa: dom(turmaA) & mediaNotas(aa) > 0
+        PRE aa: ALUNO & aa: dom(turmaA) & mediaNotas(aa) > 0 & qntProvas(aa) > 0
         THEN rr := mediaNotas(aa) / qntProvas(aa) 
         END;
         
